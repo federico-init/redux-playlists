@@ -1,6 +1,6 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 
-// SLICE
+// SONGS SLICE
 const songsSlice = createSlice({
   name: "song",
   initialState: [],
@@ -10,7 +10,29 @@ const songsSlice = createSlice({
       state.push(action.payload);
     },
     // ACTION CREATOR
-    removeSong(state, action) {},
+    removeSong(state, action) {
+      const updatedSongs = state.filter((song) => {
+        return action.payload !== song;
+      });
+      return updatedSongs;
+    },
+  },
+});
+
+// MOVIES SLICE
+const moviesSlice = createSlice({
+  name: "movie",
+  initialState: [],
+  reducers: {
+    addMovie(state, action) {
+      state.push(action.payload);
+    },
+    removeMovie(state, action) {
+      const updatedMovies = state.filter((movie) => {
+        return action.payload !== movie;
+      });
+      return updatedMovies;
+    },
   },
 });
 
@@ -18,8 +40,10 @@ const songsSlice = createSlice({
 const store = configureStore({
   reducer: {
     songs: songsSlice.reducer,
+    movies: moviesSlice.reducer,
   },
 });
 
 export { store };
-export const { addSong } = songsSlice.actions;
+export const { addSong, removeSong } = songsSlice.actions;
+export const { addMovie, removeMovie } = moviesSlice.actions;
