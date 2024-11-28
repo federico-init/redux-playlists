@@ -17,6 +17,12 @@ const songsSlice = createSlice({
       return updatedSongs;
     },
   },
+  // this adds a 'listener' for the specified action type that belongs to a different slice
+  extraReducers(builder) {
+    builder.addCase("movie/reset", (state, action) => {
+      return [];
+    });
+  },
 });
 
 // MOVIES SLICE
@@ -33,6 +39,9 @@ const moviesSlice = createSlice({
       });
       return updatedMovies;
     },
+    reset(state, action) {
+      return [];
+    },
   },
 });
 
@@ -46,4 +55,4 @@ const store = configureStore({
 
 export { store };
 export const { addSong, removeSong } = songsSlice.actions;
-export const { addMovie, removeMovie } = moviesSlice.actions;
+export const { addMovie, removeMovie, reset } = moviesSlice.actions;
